@@ -29,7 +29,8 @@ module.exports = {
                 {from: path.resolve(__dirname, 'assets/img'), to: path.resolve(__dirname, 'dist/img')},
                 {from: path.resolve(__dirname, 'assets/svg'), to: path.resolve(__dirname, 'dist/svg')},
                 {from: path.resolve(__dirname, 'assets/sounds'), to: path.resolve(__dirname, 'dist/sounds')},
-                {from: path.resolve(__dirname, 'assets/fonts'), to: path.resolve(__dirname, 'dist/fonts')}
+                {from: path.resolve(__dirname, 'assets/fonts'), to: path.resolve(__dirname, 'dist/fonts')},
+                {from: path.resolve(__dirname, 'assets/json'), to: path.resolve(__dirname, 'dist/json')}
             ]
         }),
         new MiniCssExtractPlugin({
