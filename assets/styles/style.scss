@@ -96,19 +96,6 @@ body {
   }
 }
 
-//.player-icon:hover,
-//.slider-icon:hover,
-//.change-quote:hover {
-//  opacity: 1;
-//}
-//.player-icon:active,
-//.slider-icon:active,
-//.change-quote:active {
-//  border: 0;
-//  outline: 0;
-//  transform: scale(1.1);
-//}
-
 .play {
   width: 40px;
   height: 40px;
@@ -353,6 +340,10 @@ body {
   border-radius: 20px 10px 20px 10px;
 
   transition: transform .3s ease-in-out;
+
+  .nowork {
+    color: red;
+  }
 
   .settings__title {
     font-size: 24px;
