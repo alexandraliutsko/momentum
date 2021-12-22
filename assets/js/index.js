@@ -145,12 +145,18 @@ function playAudio() {
         audio.src = playlist[audioNumber].src;
         audio.currentTime = 0;
         audio.play();
+
+        renderedAudios.forEach(item => {
+            item.classList.remove('item-active');
+        });
+        renderedAudios[audioNumber].classList.add('item-active');
     } else if (isAudioPlay) {
         isAudioPlay = false;
 
         playBtn.classList.remove('pause');
 
         audio.pause();
+        renderedAudios[audioNumber].classList.remove('item-active');
     }
 }
 
@@ -168,6 +174,11 @@ function playNextAudio() {
     audio.src = playlist[audioNumber].src;
     audio.currentTime = 0;
     audio.play();
+
+    renderedAudios.forEach(item => {
+        item.classList.remove('item-active');
+    });
+    renderedAudios[audioNumber].classList.add('item-active');
 }
 
 function playPrevAudio() {
@@ -183,6 +194,11 @@ function playPrevAudio() {
     audio.src = playlist[audioNumber].src;
     audio.currentTime = 0;
     audio.play();
+
+    renderedAudios.forEach(item => {
+        item.classList.remove('item-active');
+    });
+    renderedAudios[audioNumber].classList.add('item-active');
 }
 
 async function getWeather() {
@@ -202,21 +218,12 @@ async function getWeather() {
     ALWind.textContent = `Wind speed: ${Math.round(data.wind.speed)} m/s`;
 }
 
-function getRandomQuoteNum(min = 0, max = 500) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min)) + min;
-}
-
 async function getQuotes() {
-    const quotes = 'https://rolling-scopes-school.github.io/nekoguard-JSFE2021Q3/momentum/json/en-quotes.json';
-    const res = await fetch(quotes);
-    const data = await res.json();
+    const randomQuote = await fetch('https://api.quotable.io/random');
+    const data = await randomQuote.json();
 
-    let num = getRandomQuoteNum();
-
-    quote.textContent = `" ${data[num].text} "`;
-    quoteAuthor.textContent = `${data[num].author}`;
+    quote.textContent = `" ${data.content} "`;
+    quoteAuthor.textContent = `${data.author}`;
 }
 getQuotes();
 
@@ -225,7 +232,9 @@ playlist.forEach(item => {
     li.classList.add('play-item');
     li.textContent = `${item.title}`;
     playListContainer.append(li);
-})
+});
+
+const renderedAudios = document.querySelectorAll('.play-item');
 
 getWeather();
 

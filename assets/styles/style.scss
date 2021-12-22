@@ -64,6 +64,11 @@ body {
       }
     }
 
+    .item-active {
+      font-weight: bold;
+      color: #C5B358;
+    }
+
     .item-active::before {
       color: #C5B358;
     }
