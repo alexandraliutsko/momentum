@@ -2,9 +2,10 @@ import playlist from "./playlist";
 import '../styles/style.scss';
 import '../styles/owfont-regular.css';
 
-const ALTime = document.querySelector('.time');
-const ALDate = document.querySelector('.date');
-const ALGreeting = document.querySelector('.greeting');
+import showTime from "./show-time";
+import setBackground from "./set-background";
+import getRandomNum from "./get-random-num";
+
 const ALNameInput = document.querySelector('.name');
 const ALSlideNext = document.querySelector('.slide-next');
 const ALSlidePrev = document.querySelector('.slide-prev');
@@ -27,43 +28,6 @@ const playListContainer = document.querySelector('.play-list');
 const audio = new Audio();
 let isAudioPlay = false;
 let audioNumber = 0;
-let randomNumber;
-
-function showTime() {
-    const date = new Date();
-    ALTime.textContent = date.toLocaleTimeString('ru-RU', { hour12: false });
-
-    showDate();
-    showGreeting();
-
-    setTimeout(showTime, 1000);
-}
-
-function showDate() {
-    const date = new Date();
-    const options = {month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'};
-    ALDate.textContent = date.toLocaleDateString('ru-Ru', options);
-}
-
-function getTimeOfTheDay() {
-    const date = new Date();
-    const hours = date.getHours();
-
-    if (hours >= 0 && hours <= 5) {
-        return 'night';
-    } else if (hours > 5 && hours <= 11) {
-        return 'morning';
-    } else if (hours > 11 && hours <= 17) {
-        return 'afternoon';
-    } else if (hours > 17 && hours <= 23) {
-        return 'evening';
-    }
-}
-
-function showGreeting() {
-    const timeOfDay = getTimeOfTheDay();
-    ALGreeting.textContent = `Good ${timeOfDay},`;
-}
 
 function setLocalStorage() {
     localStorage.setItem('ALName', ALNameInput.value);
@@ -81,52 +45,10 @@ function getLocalStorage() {
     }
 }
 
-function getRandomNum(min = 1, max = 20) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    let num = Math.floor(Math.random() * (max - min + 1)) + min;
-    randomNumber = num.toString().padStart(2, '0');
-}
+
 getRandomNum();
 
-function setBackground() {
-    let timeOfTheDay = getTimeOfTheDay();
-
-    const img = new Image();
-    img.src = `https://raw.githubusercontent.com/Nekoguard/stage1-tasks/assets/images/${timeOfTheDay}/${randomNumber}.jpg`;
-
-    img.addEventListener('load', () => {
-        document.body.style.backgroundImage = `url(${img.src})`;
-    });
-}
-
 setBackground();
-
-function getSlideNext() {
-    let num = Number(randomNumber);
-    num++;
-
-    if (num > 20) {
-        num = 1;
-    }
-
-    randomNumber = num.toString().padStart(2, '0');
-
-    setBackground();
-}
-
-function getSlidePrev() {
-    let num = Number(randomNumber);
-    num--;
-
-    if (num < 1) {
-        num = 20;
-    }
-
-    randomNumber = num.toString().padStart(2, '0');
-
-    setBackground();
-}
 
 function showSettings() {
     if (settings.classList.contains('closed')) {
@@ -244,9 +166,9 @@ window.addEventListener('beforeunload', setLocalStorage);
 
 window.addEventListener('load', getLocalStorage);
 
-ALSlideNext.addEventListener('click', getSlideNext);
+ALSlideNext.addEventListener('click', setBackground);
 
-ALSlidePrev.addEventListener('click', getSlidePrev);
+ALSlidePrev.addEventListener('click', setBackground);
 
 settingsIcon.addEventListener('click', showSettings);
 
