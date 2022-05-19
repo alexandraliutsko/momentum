@@ -1,6 +1,6 @@
 ## Momentum analogue
 
-[Tap here to test it!](https://nekoguard.github.io/momentum/)
+[Tap here to test it!](https://alexandraliutsko.github.io/momentum/)
 
 ### Here I used:
 - Scss preprocessor
